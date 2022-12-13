@@ -7,7 +7,7 @@ from scipy.io.wavfile import write
 from boltiot import Bolt
 
 #Setup
-i = 1 #counter
+count = 1 #counter
 fs = 44100 #Sample Rate
 seconds = 4 #Recording time
 mybolt = Bolt(conf.BOLT_API_KEY, conf.DEVICE_ID) #
@@ -49,10 +49,10 @@ while True:
 	record_and_save_audio()
 
 	# For the 1st recording
-	if i == 1:
+	if count == 1:
 		current_loudness = get_loudness()
 		previous_loudness = current_loudness
-		i = 0
+		count = 0
 
 	# For other recordings
 	else:
