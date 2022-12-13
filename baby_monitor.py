@@ -7,19 +7,19 @@ from scipy.io.wavfile import write
 from boltiot import Bolt
 
 #Setup
-i = 1
-fs = 44100
-seconds = 4
-mybolt = Bolt(conf.BOLT_API_KEY, conf.DEVICE_ID)
+i = 1 #counter
+fs = 44100 #Sample Rate
+seconds = 4 #Recording time
+mybolt = Bolt(conf.BOLT_API_KEY, conf.DEVICE_ID) #
 
 
 # Function for recording and saving audio
 def record_and_save_audio():
 	try:
 		print('Recording Started')
-		recording = sd.rec(int(seconds * fs), samplerate=fs, channels=2)
-		sd.wait()
-		write('output.wav', fs, recording)
+		recording = sd.rec(int(seconds * fs), samplerate=fs, channels=2) # Recording audio
+		sd.wait() #Waiting till the recording is finished
+		write('output.wav', fs, recording) #Saving the recorded audio in .wav format
 		print('Recording ended')
 
 	except KeyboardInterrupt:
@@ -30,9 +30,9 @@ def record_and_save_audio():
 # Function for measuring loudness of audio file
 # Using LUFS (Loudness units relative to Full Scale) to measure loudness
 def get_loudness():
-	data, rate = sf.read("output.wav")
-	meter = pyln.Meter(rate)
-	loud = meter.integrated_loudness(data)
+	data, rate = sf.read("output.wav") #Reading the saved file
+	meter = pyln.Meter(rate) #Making a meter (Required in LUFS)
+	loud = meter.integrated_loudness(data) #Measuring Loudness
 	return loud
 
 
